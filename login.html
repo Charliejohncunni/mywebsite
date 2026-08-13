@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 400px; margin: 4rem auto; padding: 2rem; border: 1px solid #ddd; border-radius: 8px; }
+    h2 { text-align: center; }
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; margin-bottom: 0.5rem; }
+    input { width: 100%; padding: 0.5rem; }
+    button { width: 100%; padding: 0.75rem; margin-top: 1rem; }
+    .error { color: red; text-align: center; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h2>Login</h2>
+  <form id="loginForm">
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Sign In</button>
+  </form>
+  <div id="error" class="error"></div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const errorDiv = document.getElementById('error');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      errorDiv.textContent = '';
+      const formData = new FormData(form);
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: formData.get('password') })
+      });
+      const data = await response.json();
+      if (data.success) {
+        window.location.href = '/dashboard';
+      } else {
+        errorDiv.textContent = data.message || 'Invalid credentials';
+      }
+    });
+  </script>
+</body>
+</html>
