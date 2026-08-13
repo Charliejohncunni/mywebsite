@@ -1,0 +1,26 @@
+name = "mywebsite"
+
+authors = []
+
+[build]
+  # Use the Pages Functions framework
+  bucket = "./dist"
+  # If using Pages Functions in /src, set framework to workers
+  # For Pages Functions, we'll rely on the /src/api directory convention
+
+[env.production]
+  # Gmail OAuth credentials - set these in the Cloudflare dashboard
+  # or via `npx wrangler secret put GMAIL_CLIENT_ID --env production`
+  GMAIL_CLIENT_ID = ""
+  GMAIL_CLIENT_SECRET = ""
+  GMAIL_REFRESH_TOKEN = ""
+
+[env.preview]
+  GMAIL_CLIENT_ID = ""
+  GMAIL_CLIENT_SECRET = ""
+  GMAIL_REFRESH_TOKEN = ""
+
+[env.development]
+  GMAIL_CLIENT_ID = ""
+  GMAIL_CLIENT_SECRET = ""
+  GMAIL_REFRESH_TOKEN = ""
